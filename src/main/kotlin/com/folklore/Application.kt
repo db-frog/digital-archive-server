@@ -1,6 +1,7 @@
 package com.folklore
 
 import com.folklore.plugins.*
+import db.Database
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -8,7 +9,8 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
+    val db = Database()
     configureSecurity()
     configureSerialization()
-    configureRouting()
+    configureRouting(db)
 }

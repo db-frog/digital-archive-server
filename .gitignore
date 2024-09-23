@@ -31,6 +31,8 @@ build/
 
 .DS_Store
 
+
+resources/META-INF
 target/
 pom.xml.tag
 pom.xml.releaseBackup

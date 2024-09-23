@@ -6,16 +6,13 @@ import io.ktor.server.routing.*
 import aws.sdk.kotlin.services.s3.*
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
 import aws.sdk.kotlin.services.s3.presigners.presignGetObject
-import io.ktor.http.*
-import java.io.File
-import java.net.URL
-import kotlin.time.Duration.Companion.hours
+import db.Database
 import kotlin.time.Duration.Companion.minutes
 
 val REGION = "us-west-1"
 val BUCKET = "folklorearchive"
 
-fun Application.configureRouting() {
+fun Application.configureRouting(db: Database) {
     routing {
         get("/") {
             call.respondText("Hello World!")
