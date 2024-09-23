@@ -6,6 +6,7 @@ import io.ktor.server.routing.*
 import aws.sdk.kotlin.services.s3.*
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
 import aws.sdk.kotlin.services.s3.presigners.presignGetObject
+import com.folklore.persistence.LoreFileReader
 import db.Database
 import kotlin.time.Duration.Companion.minutes
 
@@ -34,6 +35,10 @@ fun Application.configureRouting(db: Database) {
             println("Successfully made download link for $BUCKET/$request")
             call.respondRedirect(presignedRequest.url.toString())
             /* TODO: use search term to query elasticsearch and return results */
+        }
+
+        get("/listitems") {
+            call.respondText(LoreFileReader.readAll().toString())
         }
     }
 }
