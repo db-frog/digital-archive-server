@@ -1,9 +1,9 @@
 # Digital Archive Server
 Backend service that ...
 * Calls out to Postgres DB for metadata about lore items
-  e.g. http://0.0.0.0:8080/query?textsearch=ritual&folder=00001_05_Taiwan_folkspeech_1of2.pdf
+  * e.g. http://0.0.0.0:8080/query?textsearch=ritual&folder=00001_05_Taiwan_folkspeech_1of2.pdf
 * Calls out to S3 for PDF downloads
-  e.g. http://0.0.0.0:8080/00001_05_Taiwan_folkspeech_1of2/5.pdf
+  * e.g. http://0.0.0.0:8080/00001_05_Taiwan_folkspeech_1of2/5.pdf
 
 # Stack
 * Dockerizable Ktor service with Flyway to create Postgres tables, which are queried via code
@@ -20,16 +20,15 @@ Most easily run using IntelliJ. Must set up with AWS credentials, either using A
 
 Set environment variable POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DATABASE in run config
 
-Use psql to create user with password and database before trying to run flyway
+Use psql to create user with password by running `create user test with password 'test123';` before trying to run flyway
 
-To create docker image, use the docker-compose.yml file
+To create docker image and containers, run `mvn package -Dmaven.test.skip` then use the docker-compose.yml file
 
-* `create user test with password 'test123';`
-## Create JAR for Docker Image using IntelliJ
-File -> Project Structure -> Project Settings -> Artifacts -> Click + (plus sign) -> Jar -> From modules with dependencies...
-
-see: https://stackoverflow.com/questions/1082580/how-to-build-jars-from-intellij-idea-properly
-
-##
+## TODO's
 TODO: env specific configs
+
 TODO: fix connection to postgres in docker
+
+TODO: AWS auth in docker
+
+TODO: search (SOLR https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html)

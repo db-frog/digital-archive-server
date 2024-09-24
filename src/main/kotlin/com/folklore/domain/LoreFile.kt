@@ -6,5 +6,5 @@ data class LoreFile(
     val topic: Int?,
     val folder: String?,
     val topicFullName: String?,
-    val keyWords: String?,
+    val keyWords: String?
 )

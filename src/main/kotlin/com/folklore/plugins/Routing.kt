@@ -40,5 +40,10 @@ fun Application.configureRouting(db: Database) {
         get("/listitems") {
             call.respondText(LoreFileReader.readAll().toString())
         }
+
+        get("/query") {
+            val queryString = call.request.queryParameters["textsearch"]
+            call.respondText(LoreFileReader.textSearch(queryString).toString())
+        }
     }
 }
