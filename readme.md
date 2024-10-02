@@ -24,6 +24,16 @@ Use psql to create user with password by running `create user test with password
 
 To create docker image and containers, run `mvn package -Dmaven.test.skip` then use the docker-compose.yml file
 
+Command for connecting to postgres in Docker:
+`docker exec -ti postgres psql -U test`
+
+```
+mvn package -Dmaven.test.skip
+[run compose]
+docker tag digital-archive-server-web dbenett/digital-archive-server-web
+docker push dbenett/digital-archive-server-web:latest      
+```
+
 ## TODO's
 TODO: env specific configs
 

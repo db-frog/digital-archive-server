@@ -6,8 +6,12 @@ import io.ktor.server.routing.*
 import aws.sdk.kotlin.services.s3.*
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
 import aws.sdk.kotlin.services.s3.presigners.presignGetObject
+import com.folklore.domain.LoreFile
 import com.folklore.persistence.LoreFileReader
+import com.folklore.persistence.LoreFileWriter
 import db.Database
+import io.ktor.http.*
+import io.ktor.server.request.*
 import kotlin.time.Duration.Companion.minutes
 
 val REGION = "us-west-1"
@@ -44,6 +48,12 @@ fun Application.configureRouting(db: Database) {
         get("/query") {
             val queryString = call.request.queryParameters["textsearch"]
             call.respondText(LoreFileReader.textSearch(queryString).toString())
+        }
+
+        post("/lorefile") {
+            val loreFile = call.receive<LoreFile>()
+            LoreFileWriter.write(loreFile)
+            call.respondText("LoreFile stored correctly", status = HttpStatusCode.Created)
         }
     }
 }

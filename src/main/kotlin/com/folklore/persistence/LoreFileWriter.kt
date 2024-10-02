@@ -25,15 +25,18 @@ object LoreFileWriter {
             }.toList()
     }
 
+    fun write(loreFile: LoreFile) = transaction {
+        SchemaUtils.create(LoreFilesTable)
+        LoreFilesTable.insert {
+            it[s3Path] = loreFile.s3Path
+            it[text] = loreFile.text
+            it[topic] = loreFile.topic
+        }
+    }
+
     fun writeFromCsv(dataFile: InputStream) = readCsv(dataFile).forEach { loreFile ->
         transaction {
-            SchemaUtils.create(LoreFilesTable)
-
-            LoreFilesTable.insert {
-                it[s3Path] = loreFile.s3Path
-                it[text] = loreFile.text
-                it[topic] = loreFile.topic
-            }
+            write(loreFile)
         }
     }
 }

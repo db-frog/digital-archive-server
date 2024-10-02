@@ -23,15 +23,15 @@ class Database {
 
     fun getProperty(key: String): String? = appConfig.propertyOrNull(key)?.getString()
 
-    private val dbUrl = getProperty("flyway.url") ?: "jdbc:postgresql://db:5432/archive"
+    private val dbUrl = getProperty("flyway.url") ?: "jdbc:postgresql://localhost:5432/postgres"
     private val dbUser = getProperty("flyway.user") ?: "test"
     private val dbPassword = getProperty("flyway.password") ?: "test123"
 
     init {
         Database.connect(hikari())
 
-        val flyway = Flyway.configure().dataSource(dbUrl, dbUser, dbPassword).load()
-        flyway.migrate()
+        //val flyway = Flyway.configure().dataSource(dbUrl, dbUser, dbPassword).load()
+        //flyway.migrate()
 
         //LoreFileWriter.writeFromCsv(Files.newInputStream(getResourceFilePath("filetexttopic.csv")))
     }
